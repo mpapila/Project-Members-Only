@@ -1,0 +1,14 @@
+<%- include('layout'); -%>
+
+    <div class="form">
+        <h2>
+            <%=title%>
+        </h2>
+        <form action="/post/create" method="POST">
+            <div class="form-group">
+                <label for="post">Post: </label>
+                <textarea id="post" name="post" rows="4" cols="50" type="text"></textarea>
+            </div>
+            <button>Send</button>
+        </form>
+    </div>

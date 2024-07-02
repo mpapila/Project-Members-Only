@@ -1,0 +1,22 @@
+<%- include('layout'); -%>
+
+    <div id="home" class="container">
+        <div style="display: flex; justify-content: space-between;">
+            <h1>
+                <%= title%>
+            </h1>
+            <a href="/post/create" style="align-self: center;">Create New Post</a>
+
+        </div>
+        <% posts.forEach(function(post) { %>
+            <ul class="post">
+                <li>
+                    <%= post.username.charAt(0).toUpperCase() +post.username.slice(1) %>
+                </li>
+                <li>
+                    <%= post.post %>
+                </li>
+            </ul>
+            <% }) %>
+
+    </div>

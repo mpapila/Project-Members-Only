@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+
+<header>
+    <h1>
+        <%= title %>
+    </h1>
+    <nav>
+        <% if (locals.user) { %>
+            <p>Welcome <%= user.username.charAt(0).toUpperCase() + user.username.slice(1) %>
+            </p>
+            <% } %>
+                <a href="/">Home</a>
+                <a href="/post">All Posts</a>
+
+                <% if (locals.user) { %>
+                    <% if (locals.user.isAdmin) { %>
+                        <a href="/admin">Admin Dashboard</a>
+                        <% } %>
+                            <a href="/logout">Logout</a>
+                            <% } else { %>
+                                <a href="/login">Login</a>
+                                <a href="/sign-up">Register</a>
+                                <% } %>
+
+    </nav>
+</header>

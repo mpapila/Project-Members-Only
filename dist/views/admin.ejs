@@ -1,0 +1,53 @@
+<%- include('layout'); -%>
+
+    <div id="home" class="container" style="max-width: 1000px;margin: 50px auto;">
+        <div style="display: flex; justify-content: space-between;">
+            <h1>
+                <%= title%>
+            </h1>
+        </div>
+        <div style="display: flex;justify-content: space-around;">
+            <div>
+                <h3>Posts</h3>
+                <% posts.forEach(function(post) { %>
+                    <ul class="post" style="width: 100%;">
+                        <div class="admin-edit">
+                            <div style="padding-top: 10px;">
+                                <li>
+                                    <%= post.username || 'Unknown User' %>
+                                </li>
+                                <li>
+                                    <%= post.post %>
+                                </li>
+                            </div>
+                            <div style="padding-top: 10px;">
+                                <a href="/admin/post/<%= post.id %>/edit">Edit</a>
+                                <a href="/admin/post/:id/delete">Delete</a>
+                            </div>
+                        </div>
+                    </ul>
+                    <% }) %>
+            </div>
+            <div>
+                <h3>Users</h3>
+                <% users.forEach(function(user) { %>
+                    <ul class="post" style="width: 100%;">
+                        <div class="admin-edit">
+                            <div style="padding-top: 10px;">
+                                <li>
+                                    <%= user.username || 'Unknown User' %>
+                                </li>
+                                <li>
+                                    <%= user.email %>
+                                </li>
+                            </div>
+                            <div style="padding-top: 10px;">
+                                <a href="/admin/user:id/edit">Edit</a>
+                                <a href="/admin/user:id/delete">Delete</a>
+                            </div>
+                        </div>
+                    </ul>
+                    <% }) %>
+            </div>
+        </div>
+    </div>

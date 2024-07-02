@@ -1,0 +1,48 @@
+<%- include('layout'); -%>
+    <div class="form">
+        <h2>
+            <%= title %>
+        </h2>
+        <form id="login-form" style="display: flex; ">
+            <label for="username">Username: </label>
+            <input id="login-username" name="username" placeholder="username" type="text" />
+            <label for="password">Password: </label>
+            <input id="login-password" name="password" type="password" />
+            <button>Log In</button>
+        </form>
+        <ul>
+            <% errors.forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <script>
+            const loginForm = document.getElementById('login-form');
+            const loginUsername = document.getElementById('login-username');
+            const loginPassword = document.getElementById('login-password');
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const body = {
+                    username: loginUsername.value,
+                    password: loginPassword.value,
+                }
+                const bodyString = JSON.stringify(body)
+                const headers = {
+                    "Content-Type": "application/json"
+                }
+                const options = {
+                    body: bodyString,
+                    method: "POST",
+                    headers,
+                }
+                const URL = "/login"
+                const response = await fetch(URL, options)
+                const responsePayload = await response.json()
+                console.log('response payload', responsePayload)
+                localStorage.setItem("token", responsePayload.token)
+                document.cookie = `token=${responsePayload.token}`
+                window.location.href = '/';
+            })  
+        </script>
+    </div>

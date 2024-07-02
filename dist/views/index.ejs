@@ -1,0 +1,27 @@
+<%- include('layout'); -%>
+
+    <body>
+        <div class="centered-div">
+            <div id="home" class="container">
+                <h2>Welcome to the Home Page</h2>
+                <p>This is the home page of the website.</p>
+                <p>Number of users: <%= users_count%>
+                </p>
+            </div>
+            <% posts.forEach(function(post) { %>
+                <ul class="post">
+
+                    <% if (locals.user) { %>
+                        <li>
+                            <%= post.username.charAt(0).toUpperCase() +post.username.slice(1) %>
+                        </li>
+                        <% } %>
+                            <li>
+                                <%= post.post %>
+                            </li>
+                </ul>
+                <% }) %>
+        </div>
+    </body>
+
+    </html>
