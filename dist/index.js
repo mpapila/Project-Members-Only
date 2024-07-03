@@ -11,6 +11,8 @@ const main_1 = __importDefault(require("./routes/main"));
 const path = require("path");
 const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const compression = require("compression");
+// import helmet from "helmet";
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
@@ -22,9 +24,17 @@ app.use((0, cookie_parser_1.default)());
 if (!mongoDB) {
     throw new Error('MONGODB_URI environment variable is not defined');
 }
+app.use(compression());
 app.use(express_1.default.static(path.join(__dirname, 'views')));
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
+// app.use(
+//     helmet.contentSecurityPolicy({
+//         directives: {
+//             "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net", (req, res) => `'nonce-${res.locals.nonce}'`],
+//         },
+//     }),
+// );
 mongoose_1.default.connect(mongoDB)
     .then(() => {
     console.log('MongoDB connected');

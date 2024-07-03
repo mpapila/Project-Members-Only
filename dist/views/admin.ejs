@@ -1,5 +1,6 @@
 <%- include('layout'); -%>
 
+
     <div id="home" class="container" style="max-width: 1000px;margin: 50px auto;">
         <div style="display: flex; justify-content: space-between;">
             <h1>
@@ -7,10 +8,10 @@
             </h1>
         </div>
         <div style="display: flex;justify-content: space-around;">
-            <div>
+            <div class="Posts" data-posts="<%= usernameFromPosts %>">
                 <h3>Posts</h3>
                 <% posts.forEach(function(post) { %>
-                    <ul class="post" style="width: 100%;">
+                    <ul class="post" data-posts="<%= post.username %>" style="width: 100%;">
                         <div class="admin-edit">
                             <div style="padding-top: 10px;">
                                 <li>
@@ -22,7 +23,7 @@
                             </div>
                             <div style="padding-top: 10px;">
                                 <a href="/admin/post/<%= post.id %>/edit">Edit</a>
-                                <a href="/admin/post/:id/delete">Delete</a>
+                                <a class="delete-post" data-post-id="<%= post.id %>" href="#">Delete</a>
                             </div>
                         </div>
                     </ul>
@@ -35,15 +36,21 @@
                         <div class="admin-edit">
                             <div style="padding-top: 10px;">
                                 <li>
-                                    <%= user.username || 'Unknown User' %>
+                                    <%= user.username || ' Unknown User' %>
                                 </li>
                                 <li>
                                     <%= user.email %>
                                 </li>
                             </div>
                             <div style="padding-top: 10px;">
-                                <a href="/admin/user:id/edit">Edit</a>
-                                <a href="/admin/user:id/delete">Delete</a>
+                                <a href="/admin/user/<%= user.id %>/edit">Edit</a>
+                                <a class="delete-user" data-username="<%= user.username %>"
+                                    data-user-id="<%= user.id %>" href="#">Delete</a>
+                                <% if (error) { %>
+                                    <div style="color: red;">
+                                        <%= error %>
+                                    </div>
+                                    <% } %>
                             </div>
                         </div>
                     </ul>
@@ -51,3 +58,53 @@
             </div>
         </div>
     </div>
+    <script>
+        const deletePostbuttons = document.querySelectorAll('.delete-post')
+        const deleteUserButtons = document.querySelectorAll('.delete-user')
+        deletePostbuttons.forEach(button => {
+            button.addEventListener('click', async (event) => {
+                event.preventDefault();
+                const postId = event.target.dataset.postId
+                const url = `/admin/post/${postId}`
+                console.log('url', url)
+                console.log('post id', postId)
+                const options = { method: "DELETE" }
+                const response = await fetch(url, options)
+                if (response.ok) {
+                    window.location.href = '/admin'
+                }
+            })
+        })
+        const postDataset = document.querySelector('.Posts')
+        const allPosts = postDataset.dataset.posts
+        const postArray = allPosts.split(",")
+        deleteUserButtons.forEach(button => {
+            button.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const userId = e.target.dataset.userId;
+                const username = e.target.dataset.username
+                console.log('userId', userId)
+                const url = `/admin/user/${userId}`
+                console.log('url', url)
+                console.log('allPost:', allPosts)
+                console.log('postArray:', postArray)
+                console.log('username', username)
+                if (username === 'admin') {
+                    alert('Cannot delete Admin')
+                    return;
+                }
+                if (postArray.includes(username)) {
+                    alert("Cannot delete, user has posts")
+                } else {
+                    const options = { method: "DELETE" }
+                    const response = await fetch(url, options)
+                    console.log('User deleted')
+                    if (response.ok) {
+                        window.location.href = '/admin'
+                    }
+                }
+
+
+            })
+        })
+    </script>

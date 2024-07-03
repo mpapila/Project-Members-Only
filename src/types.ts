@@ -1,3 +1,5 @@
+
+
 export type UsersType = Document & {
     username: String,
     password: String,
@@ -19,4 +21,6 @@ export type JwtPayload = {
     createdAt: string;
     updatedAt: string;
     __v: number;
+
 }
+

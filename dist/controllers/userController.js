@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.user_logout = exports.admin_page_get = exports.user_login_post = exports.user_login_get = exports.user_create_post = exports.user_create_get = exports.index = void 0;
+exports.user_logout = exports.user_login_post = exports.user_login_get = exports.user_create_post = exports.user_create_get = exports.index = void 0;
 const Users_1 = __importDefault(require("../models/Users"));
 const Posts_1 = __importDefault(require("../models/Posts"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
@@ -37,7 +37,7 @@ exports.index = (0, express_async_handler_1.default)((req, res, next) => __await
             return next(error);
         }
         let decoded = jsonwebtoken_1.default.verify(req.cookies.token, process.env.JWT_SECRET);
-        console.log('decoded', decoded);
+        // console.log('decoded', decoded)
         renderOptions.user = decoded;
     }
     // res.send("Home Page");
@@ -124,21 +124,10 @@ exports.user_login_post = [
         const responsePayload = {
             token
         };
-        console.log('payload', responsePayload);
+        // console.log('payload', responsePayload)
         res.json(responsePayload);
     }))
 ];
-exports.admin_page_get = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const allUsers = yield Users_1.default.find({}).exec();
-    const allPosts = yield Posts_1.default.find({}).exec();
-    // const token = req.cookies.token
-    // console.log(token.decoded)
-    res.render('admin', {
-        title: "Admin Dashboard",
-        posts: allPosts,
-        users: allUsers,
-    });
-}));
 const user_logout = (req, res, next) => {
     try {
         res.clearCookie('token');

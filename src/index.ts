@@ -10,7 +10,7 @@ import path = require("path");
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import compression = require("compression");
-import helmet from "helmet";
+// import helmet from "helmet";
 
 
 dotenv.config();
@@ -30,13 +30,13 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 
-app.use(
-    helmet.contentSecurityPolicy({
-        directives: {
-            "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
-        },
-    }),
-);
+// app.use(
+//     helmet.contentSecurityPolicy({
+//         directives: {
+//             "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net", (req, res) => `'nonce-${res.locals.nonce}'`],
+//         },
+//     }),
+// );
 
 mongoose.connect(mongoDB)
     .then(() => {

@@ -32,7 +32,7 @@ export const index = asyncHandler(async (req: Request, res: Response, next: Next
             return next(error);
         }
         let decoded = jwt.verify(req.cookies.token, process.env.JWT_SECRET) as JwtPayload
-        console.log('decoded', decoded)
+        // console.log('decoded', decoded)
         renderOptions.user = decoded
     }
     // res.send("Home Page");
@@ -131,25 +131,12 @@ export const user_login_post = [
         const responsePayload = {
             token
         }
-        console.log('payload', responsePayload)
+        // console.log('payload', responsePayload)
         res.json(responsePayload)
 
 
     })
 ]
-
-export const admin_page_get = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const allUsers = await User.find({}).exec()
-    const allPosts = await Post.find({}).exec()
-    // const token = req.cookies.token
-    // console.log(token.decoded)
-    res.render('admin', {
-        title: "Admin Dashboard",
-        posts: allPosts,
-        users: allUsers,
-    })
-
-})
 
 export const user_logout = (req: Request, res: Response, next: NextFunction) => {
     try {

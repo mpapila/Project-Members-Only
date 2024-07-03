@@ -37,12 +37,20 @@ export const post_list_get = asyncHandler(async (req: Request, res: Response, ne
 
 })
 
-export const post_create_get = (req: Request, res: Response, next: NextFunction) => {
-    res.render('post_form', {
+export const post_create_get = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const renderOption: Record<string, string | number | JwtPayload | JwtPayload[]> = {
         title: 'New Post',
-        errors: []
-    })
-}
+        errors: [],
+    }
+    if (!process.env.JWT_SECRET) {
+        const error = new Error("There is no JWT Secret Key")
+        return next(error);
+    }
+    let decoded = jwt.verify(req.cookies.token, process.env.JWT_SECRET) as unknown as JwtPayload
+    renderOption.user = decoded
+    res.render('post_form', renderOption)
+})
+
 export const post_create_post = [
     body('post').trim(),
 

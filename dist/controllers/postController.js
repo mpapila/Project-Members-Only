@@ -68,13 +68,19 @@ exports.post_list_get = (0, express_async_handler_1.default)((req, res, next) =>
         }
     }
 }));
-const post_create_get = (req, res, next) => {
-    res.render('post_form', {
+exports.post_create_get = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const renderOption = {
         title: 'New Post',
-        errors: []
-    });
-};
-exports.post_create_get = post_create_get;
+        errors: [],
+    };
+    if (!process.env.JWT_SECRET) {
+        const error = new Error("There is no JWT Secret Key");
+        return next(error);
+    }
+    let decoded = jsonwebtoken_1.default.verify(req.cookies.token, process.env.JWT_SECRET);
+    renderOption.user = decoded;
+    res.render('post_form', renderOption);
+}));
 exports.post_create_post = [
     (0, express_validator_1.body)('post').trim(),
     (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
