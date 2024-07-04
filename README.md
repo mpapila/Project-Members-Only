@@ -9,7 +9,7 @@ Project Members Only is a web application designed to allow users to register, l
 - Username: `admin`
 - Password: `adminadmin`
 
-You can also try using the `admin` account
+You can also try using the `admin` account to access the admin dashboard.
 
 ## Features
 - User registration and authentication.
