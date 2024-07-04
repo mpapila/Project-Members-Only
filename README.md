@@ -5,6 +5,11 @@ Project Members Only is a web application designed to allow users to register, l
 ## Live Site
 [Visit the live site here](https://project-members-only-v2.glitch.me/)
 
+**Admin Credentials:**
+- Username: `admin`
+- Password: `adminadmin`
+
+You can also try using the `admin` account
 
 ## Features
 - User registration and authentication.
