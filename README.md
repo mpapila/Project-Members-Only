@@ -3,7 +3,8 @@
 Project Members Only is a web application designed to allow users to register, log in, and create posts. Admin users have additional capabilities, such as editing and deleting posts and users.
 
 ## Live Site
-[Visit the live site here](https://married-solstice-color.glitch.me/)
+[Visit the live site here](https://project-members-only-v2.glitch.me/)
+
 
 ## Features
 - User registration and authentication.
