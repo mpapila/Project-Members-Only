@@ -13,7 +13,6 @@ const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const compression = require("compression");
 const helmet_1 = __importDefault(require("helmet"));
-// import helmet from "helmet";
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
@@ -31,7 +30,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 app.use(helmet_1.default.contentSecurityPolicy({
     directives: {
-        "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net", (req, res) => `'nonce-${res.locals.nonce}'`],
+        "script-src": ["'self' 'unsafe-inline'", "code.jquery.com", "cdn.jsdelivr.net"],
     },
 }));
 mongoose_1.default.connect(mongoDB)

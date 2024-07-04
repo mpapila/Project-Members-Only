@@ -10,8 +10,9 @@ import path = require("path");
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import compression = require("compression");
+import crypto from 'crypto';
 import helmet from "helmet";
-// import helmet from "helmet";
+
 
 
 dotenv.config();
@@ -34,7 +35,7 @@ app.set("view engine", "ejs");
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
-            "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net", (req, res) => `'nonce-${res.locals.nonce}'`],
+            "script-src": ["'self' 'unsafe-inline'", "code.jquery.com", "cdn.jsdelivr.net"],
         },
     }),
 );
